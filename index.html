@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script src="encoder.js"></script>
+    <title>Code 128A Encoder</title>
+  </head>
+
+  <body>
+    <div id="main-col">
+      <header>Code 128A Barcode Encoder</header>
+      <hr>
+      
+      <section>
+        <h2>Reference Info</h2>
+        <p><b>Detailed Code 128 specification:</b> <a href="https://www.barcodefaq.com/1d/code-128/">barcodefaq.com/1d/code-128</a></p>
+        <p>Be aware that barcode data you enter below is case sensitive;</p>
+        <pre>        ordinary data must be upper case,</pre>
+        <pre>        control characters must be lower case.</pre>
+        <p>Some common control characters are:</p>
+        <ul>
+          <li>escape: {</li>
+          <li>enter: m</li>
+          <li>backspace: h</li>
+        </ul>
+      </section>
+      
+      <section>
+        <h2>Example</h2>
+        <p>For example, given the following scan gun navigation path</p>
+        <ul>
+          <li>8: Utilities</li>
+          <li>C: Create Empty Tags</li>
+          <li>(some field which takes a number of empty tags to create as input)</li>
+          <li>(user input followed by the enter key, followed by the Y key to confirm)</li>
+        </ul>
+        <p>one would enter the following data to create 10 empty tags:</p>
+        <div id="example-data"><b>{{{{8C10mY{</b></div>
+        <p>The first four <b>{</b>'s are translated to escape key presses, backing out of whatever screen the barcode reader is currently on to the main menu.</p>
+        <p>The <b>8</b> navigates from the main menu to the "Utilities" screen.</p>
+        <p>The <b>C</b> navigates from the "Utilities" screen to the "Create Empty Tags" screen.</p>
+        <p>The <b>10</b> populates the field with the number of tags to create.</p>
+        <p>The <b>m</b> translates to an enter key press. (note that it's lower case)</p>
+        <p>The <b>Y</b> is an ordinary Y key press, confirming the creation of 10 tags. (note that it's upper case)</p>
+        <p>The final <b>{</b> translates to an escape key press, backing out of the "Create Empty Tags" screen to the "Utilities" screen.</p>
+        <p>At the end of the barcode, the barcode scanner automatically issues the enter key and, since the "Create Empty Tags" menu option is currently highlighted
+          in the "Utilities" screen, the automatic enter key press navigates back into the "Create Empty Tags" screen.</p>
+      </section>
+      
+      <section>
+        <label for="data">Barcode Data</label>
+        <input id="data" type="text" required=true minlength=1 spellcheck="false" />
+        <button id="submit">Encode</button>
+        <button id="clear">Clear</button>
+      </section>
+      
+      <section>
+        <label for="output">Output</label>
+        <textarea id="barcode" disabled></textarea>
+        <textarea id="output" disabled></textarea>
+        <button id="copy-button"><object id="copy-icon" type="image/svg+xml" data="copy-icon.svg">copy icon</object></button>
+        <p>Use font <a href="https://fonts.google.com/specimen/Libre+Barcode+128">Libre Barcode 128</a> or another equivalent to render the encoded barcode text elsewhere,
+          such as within MS Excel or Google Sheets.</p>
+      </section>
+      
+      <section>
+        <label for="steps">Checksum Calculation Steps Performed</label>
+        <textarea id="steps" wrap="off" disabled></textarea>
+      </section>
+    </div>
+
+    <footer>
+      <a href="https://ptlux1517.github.io/"><object id="home-icon" type="image/svg+xml" data="home-icon.svg"></object> Home</a>
+    </footer>
+  </body>
+
+</html>
