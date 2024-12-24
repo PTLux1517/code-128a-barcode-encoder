@@ -22,7 +22,7 @@ body {
    flex-direction: column;
 }
 
-#main-col, #additional-links-area {
+#main-col, #additional-warehouse-resources {
    width: 800px;
    padding: 25px;
    margin: 25px;
