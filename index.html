@@ -1,118 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Ubuntu+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <script src="encoder.js"></script>
-    <title>Code 128A Encoder</title>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <script src="encoder.js"></script>
+  <title>Code 128A Encoder</title>
+</head>
 
-  <body>
-    <div id="main-col">
-      <header>Code 128A Barcode Encoder</header>
-      <hr>
-      
-      <section>
-        <h2>Reference Info</h2>
-        <p><b>Detailed Code 128 specification:</b> <a href="https://www.barcodefaq.com/1d/code-128/" target="_blank">barcodefaq.com/1d/code-128</a></p>
-        <p>Be aware that barcode data you enter below is case sensitive;</p>
-        <pre>        ordinary data must be upper case,</pre>
-        <pre>        control characters must be lower case.</pre>
-        <p>Some common control characters are:</p>
-        <ul>
-          <li>escape: {</li>
-          <li>enter: m</li>
-          <li>backspace: h</li>
-        </ul>
-      </section>
-      
-      <section>
-        <h2>Example</h2>
-        <p>For example, given the following scan gun navigation path</p>
-        <ul>
-          <li>8: Utilities</li>
-          <li>C: Create Empty Tags</li>
-          <li>(some field which takes a number of empty tags to create as input)</li>
-          <li>(user input followed by the enter key, followed by the Y key to confirm)</li>
-        </ul>
-        <p>one would enter the following data to create 10 empty tags:</p>
-        <div id="example-data"><b>{{{{8C10mY{</b></div>
-        <p>The first four <b>{</b>'s are translated to escape key presses, backing out of whatever screen the barcode reader is currently on to the main menu.</p>
-        <p>The <b>8</b> navigates from the main menu to the "Utilities" screen.</p>
-        <p>The <b>C</b> navigates from the "Utilities" screen to the "Create Empty Tags" screen.</p>
-        <p>The <b>10</b> populates the field with the number of tags to create.</p>
-        <p>The <b>m</b> translates to an enter key press. (note that it's lower case)</p>
-        <p>The <b>Y</b> is an ordinary Y key press, confirming the creation of 10 tags. (note that it's upper case)</p>
-        <p>The final <b>{</b> translates to an escape key press, backing out of the "Create Empty Tags" screen to the "Utilities" screen.</p>
-        <p>At the end of the barcode, the barcode scanner automatically issues the enter key and, since the "Create Empty Tags" menu option is currently highlighted
-          in the "Utilities" screen, the automatic enter key press navigates back into the "Create Empty Tags" screen.</p>
-      </section>
-      
-      <section>
-        <label for="data">Barcode Data</label>
-        <input id="data" type="text" required minlength=1 spellcheck="false" />
-        <button id="submit">Encode</button>
-        <button id="clear">Clear</button>
-      </section>
-      
-      <section>
-        <label for="output">Output</label>
-        <textarea id="barcode" disabled></textarea>
-        <textarea id="output" disabled></textarea>
-        <button id="copy-button"><object id="copy-icon" type="image/svg+xml" data="copy-icon.svg">copy icon</object></button>
-        <p>Use font <a href="https://fonts.google.com/specimen/Libre+Barcode+128">Libre Barcode 128</a> or another equivalent to render the encoded barcode text elsewhere,
-          such as within MS Excel or Google Sheets.</p>
-      </section>
-      
-      <section>
-        <label for="steps">Checksum Calculation Steps Performed</label>
-        <textarea id="steps" wrap="off" disabled></textarea>
-      </section>
-    </div>
+<body>
+  <div id="main-col">
+    <header>Code 128A Barcode Encoder</header>
+    <hr>
 
-    <div id="additional-warehouse-resources">
-      <header>Additional Warehouse Resources</header>
-      <hr>
-      <h2>Loading & Staging</h2>
+    <section>
+      <h2>Reference Info</h2>
+      <p><b>Detailed Code 128 specification:</b> <a href="https://www.barcodefaq.com/1d/code-128/" target="_blank">barcodefaq.com/1d/code-128</a></p>
+      <p>Be aware that barcode data you enter below is case sensitive;</p>
+      <pre>        ordinary data must be upper case,</pre>
+      <pre>        control characters must be lower case.</pre>
+      <p>Some common control characters are:</p>
       <ul>
-        <li><a href="https://docs.google.com/spreadsheets/d/1JLiygv77FkasFeN1a7r-iABMrA7Fz3hysaLoHjM7ckU/edit?usp=drive_link" target="_blank">axle weight calculator</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1ylUuhVw6vmaMuh6XxpdOVlOAM1QJvZt9aA4Eh_W6cUg/edit?usp=drive_link" target="_blank">staged load info (to be filled out by shagger)</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1mwGXmdBqmqiCkiC3mBUmNo2ICYFeLWlp3e9McG2n15g/edit?usp=drive_link" target="_blank">dock map</a></li>
+        <li>escape: {</li>
+        <li>enter: m</li>
+        <li>backspace: h</li>
       </ul>
-      <h2>Picking</h2>
-      <ul>
-        <li>material info sheet (all case/layer counts, pallet weights, source lines/XDOCK, and pallet types) [controlled info; ask Cory (1st shift) in person to make a copy]</li>
-        <li>picking guide (customer requirements) [controlled info; ask Cory (1st shift) in person to make a copy]</li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1dMqv5cHhyryZPygebNrS58xfFJ521syi-h1QLjUi2JA/edit?usp=drive_link" target="_blank">multiplication table (tailored to products)</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1vt_qRP3ZedhnSm0sjBw47_7Bc4rYMHyDKM8xZ12MOO8/edit?usp=drive_link" target="_blank">multiplication table (extended)</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1yqspB3x5XJyBlb2XJH5bx03rzLNVRk3oT1XrLoGbUfE/edit?usp=drive_link" target="_blank">barcodes for DRT</a></li>
-      </ul>
-      <h2>Gear For Equipment</h2>
-      <ul>
-        <li><a href="https://www.amazon.com/gp/product/B08T768F38/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">magnets</a></li>
-        <li><a href="https://www.walmart.com/ip/Better-Homes-Gardens-Canister-11-1-Cup-Flip-Tite-Rectangular-Food-Storage-Container/141474107?fulfillmentIntent=In-store&filters=%5B%7B%22intent%22%3A%22fulfillmentIntent%22%2C%22values%22%3A%5B%22In-store%22%5D%7D%5D&classType=VARIANT" target="_blank">dead tags bin</a></li>
-        <li><a href="https://www.walmart.com/ip/Hyper-Tough-2-Pack-48-inch-Standard-Bungee-Cords-Rubber-Green-Color/36867014?fulfillmentIntent=In-store&filters=%5B%7B%22intent%22%3A%22fulfillmentIntent%22%2C%22values%22%3A%5B%22In-store%22%5D%7D%5D&classType=REGULAR&from=/search" target="_blank">4ft bungee cords (for holding slip sheets on long hauler)</a></li>
-        <li><a href="https://www.amazon.com/gp/product/B08TQW4S3Q/ref=sw_img_1?smid=A3LZ0WSGO0K78P&th=1" target="_blank">dual clicker counters (for counting TCCA/transfer chep & white pallets, or Safeway orders with multiple pallets on one tag</a></li>
-      </ul>
-      <h2>Workwear / Tools</h2>
-      <ul>
-        <li><a href="https://www.studioneat.com/products/cosmonaut" target="_blank">oversized durable stylus</a></li>
-        <li><a href="https://www.amazon.com/gp/product/B08WWS77P2/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1" target="_blank">badge holder</a></li>
-        <li><a href="https://www.carhartt.com/product/105470/mens-insulated-bib-overall---loose-fit---firm-duck---4-extreme-warmth-rating" target="_blank">bib coveralls</a></li>
-        <li><a href="https://www.amazon.com/gp/product/B09RK79YB8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1&psc=1" target="_blank">boots</a></li>
-        <li><a href="https://www.amazon.com/gp/product/B07HZQCDC1/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">heavy socks</a></li>
-        <li><a href="https://www.amazon.com/gp/product/B01AT2XQ68/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">heavy gloves</a></li>
-      </ul>
-    </div>
+    </section>
 
-    <footer>
-      <a href="https://ptlux1517.github.io/"><object id="home-icon" type="image/svg+xml" data="home-icon.svg"></object> Home</a>
-    </footer>
-  </body>
+    <section>
+      <h2>Example</h2>
+      <p>For example, given the following scan gun navigation path</p>
+      <ul>
+        <li>8: Utilities</li>
+        <li>C: Create Empty Tags</li>
+        <li>(some field which takes a number of empty tags to create as input)</li>
+        <li>(user input followed by the enter key, followed by the Y key to confirm)</li>
+      </ul>
+      <p>one would enter the following data to create 10 empty tags:</p>
+      <div id="example-data"><b>{{{{8C10mY{</b></div>
+      <p>The first four <b>{</b>'s are translated to escape key presses, backing out of whatever screen the barcode reader is currently on to the main menu.</p>
+      <p>The <b>8</b> navigates from the main menu to the "Utilities" screen.</p>
+      <p>The <b>C</b> navigates from the "Utilities" screen to the "Create Empty Tags" screen.</p>
+      <p>The <b>10</b> populates the field with the number of tags to create.</p>
+      <p>The <b>m</b> translates to an enter key press.<br>(note that it's lower case)</p>
+      <p>The <b>Y</b> is an ordinary Y key press, confirming the creation of 10 tags.<br>(note that it's upper case)</p>
+      <p>The final <b>{</b> translates to an escape key press, backing out of the "Create Empty Tags" screen to the "Utilities" screen.</p>
+      <p>At the end of the barcode, the barcode scanner automatically issues the enter key and, since the "Create Empty Tags" menu option is currently highlighted
+         in the "Utilities" screen, the automatic enter key press navigates back into the "Create Empty Tags" screen.</p>
+    </section>
+
+    <section>
+      <label for="data">Barcode Data</label>
+      <input id="data" type="text" required minlength="1" spellcheck="false" />
+      <button id="submit">Encode</button>
+      <button id="clear">Clear</button>
+    </section>
+
+    <section>
+      <label for="output">Output</label>
+      <textarea id="barcode" disabled></textarea>
+      <textarea id="output" disabled></textarea>
+      <button id="copy-button">
+        <object id="copy-icon" type="image/svg+xml" data="copy-icon.svg">copy icon</object>
+      </button>
+      <p>Use font
+        <a href="https://fonts.google.com/specimen/Libre+Barcode+128">Libre Barcode 128</a> or other equivalent to render the encoded barcode text elsewhere,
+         such as within MS Excel or Google Sheets.</p>
+    </section>
+
+    <section>
+      <label for="steps">Checksum Calculation Steps Performed</label>
+      <textarea id="steps" wrap="off" disabled></textarea>
+    </section>
+  </div>
+
+  <div id="additional-warehouse-resources">
+    <header>Additional Warehouse Resources</header>
+    <hr>
+    <h2>Loading & Staging</h2>
+    <ul>
+      <li><a href="https://docs.google.com/spreadsheets/d/1JLiygv77FkasFeN1a7r-iABMrA7Fz3hysaLoHjM7ckU/edit?usp=drive_link"
+             target="_blank">axle weight calculator</a></li>
+      <li><a href="https://docs.google.com/spreadsheets/d/1ylUuhVw6vmaMuh6XxpdOVlOAM1QJvZt9aA4Eh_W6cUg/edit?usp=drive_link"
+             target="_blank">staged load info </a><span class="subtext">(to be filled out by shagger)</span></li>
+      <li><a href="https://docs.google.com/spreadsheets/d/1mwGXmdBqmqiCkiC3mBUmNo2ICYFeLWlp3e9McG2n15g/edit?usp=drive_link" target="_blank">dock map</a></li>
+    </ul>
+    <h2>Picking</h2>
+    <ul>
+      <li>material info <span class="disclaimer">[controlled info; ask Cory (1st shift) in person to make a copy]</span>
+        <pre><span class="subtext">        (all case/layer counts, pallet weights, source lines/XDOCK, and pallet types)</span></pre></li>
+      <li>picking guide <span class="disclaimer">[controlled info; ask Cory (1st shift) in person to make a copy]</span>
+        <pre><span class="subtext">        (customer requirements such as:
+        pallet types, slip sheet use, newest or oldest batch use, grocery tag use, etc.)</span></pre></li>
+      <li><a href="https://docs.google.com/spreadsheets/d/1dMqv5cHhyryZPygebNrS58xfFJ521syi-h1QLjUi2JA/edit?usp=drive_link"
+             target="_blank">multiplication table (tailored to products)</a></li>
+      <li><a href="https://docs.google.com/spreadsheets/d/1vt_qRP3ZedhnSm0sjBw47_7Bc4rYMHyDKM8xZ12MOO8/edit?usp=drive_link"
+             target="_blank">multiplication table (extended)</a></li>
+      <li><a href="https://docs.google.com/spreadsheets/d/1yqspB3x5XJyBlb2XJH5bx03rzLNVRk3oT1XrLoGbUfE/edit?usp=drive_link" target="_blank">barcodes for DRT</a></li>
+    </ul>
+    <h2>Gear For Equipment</h2>
+    <ul>
+      <li><a href="https://www.amazon.com/gp/product/B08T768F38/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">magnets</a></li>
+      <li><a href="https://www.walmart.com/ip/Better-Homes-Gardens-Canister-11-1-Cup-Flip-Tite-Rectangular-Food-Storage-Container/141474107?fulfillmentIntent=In-store&filters=%5B%7B%22intent%22%3A%22fulfillmentIntent%22%2C%22values%22%3A%5B%22In-store%22%5D%7D%5D&classType=VARIANT"
+             target="_blank">dead tags bin</a></li>
+      <li><a href="https://www.walmart.com/ip/Hyper-Tough-2-Pack-48-inch-Standard-Bungee-Cords-Rubber-Green-Color/36867014?fulfillmentIntent=In-store&filters=%5B%7B%22intent%22%3A%22fulfillmentIntent%22%2C%22values%22%3A%5B%22In-store%22%5D%7D%5D&classType=REGULAR&from=/search"
+             target="_blank">4ft bungee cords </a><span class="subtext">(for holding slip sheets on long hauler)</span></li>
+      <li><a href="https://www.amazon.com/gp/product/B08TQW4S3Q/ref=sw_img_1?smid=A3LZ0WSGO0K78P&th=1"
+             target="_blank">dual clicker counters</a>
+        <pre><span class="subtext">        (for counting TCCA/transfer chep & white pallets,
+         or Safeway orders with multiple pallets on one tag)</span></pre></li>
+    </ul>
+    <h2>Workwear / Tools</h2>
+    <ul>
+      <li><a href="https://www.studioneat.com/products/cosmonaut" target="_blank">oversized durable stylus</a></li>
+      <li><a href="https://www.amazon.com/gp/product/B08WWS77P2/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1" target="_blank">badge holder</a></li>
+      <li><a href="https://www.carhartt.com/product/105470/mens-insulated-bib-overall---loose-fit---firm-duck---4-extreme-warmth-rating"
+             target="_blank">bib coveralls</a></li>
+      <li><a href="https://www.amazon.com/gp/product/B09RK79YB8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1&psc=1" target="_blank">boots</a></li>
+      <li><a href="https://www.amazon.com/gp/product/B07HZQCDC1/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">heavy socks</a></li>
+      <li><a href="https://www.amazon.com/gp/product/B01AT2XQ68/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">heavy gloves</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="https://ptlux1517.github.io/">
+      <object id="home-icon" type="image/svg+xml" data="home-icon.svg"></object>
+      Home</a>
+  </footer>
+</body>
 
 </html>

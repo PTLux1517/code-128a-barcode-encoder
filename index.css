@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Ubuntu+Mono&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Ubuntu+Mono&family=Pacifico&family=Langar&display=swap');
 
 html {
    height: 100%;
@@ -18,6 +18,7 @@ body {
    display: flex;
    justify-content: center;
    align-items: center;
+   font-family: 'Ubuntu Mono', sans-serif;
    font-size: 20px;
    flex-direction: column;
 }
@@ -31,8 +32,10 @@ body {
 }
 
 header {
-   font-size: 36px;
+   font-family: 'Langar', sans-serif;
+   font-size: 40px;
    text-align: center;
+   color: hsl(30,50%, 50%);
 }
 
 section {
@@ -40,8 +43,20 @@ section {
 }
 
 pre {
-   font-family: Serif;
    margin: 0;
+   font-size: 16px;
+}
+
+.subtext {
+   color: darkgray;
+   font-family: "Ubuntu Condensed", sans-serif;
+   font-size: 22px;
+}
+
+.disclaimer {
+   color: hsl(20,50%,50%);
+   font-family: "Ubuntu Condensed", sans-serif;
+   font-size: 23px;
 }
 
 a {
@@ -60,9 +75,11 @@ a:active {
 
 h2, label {
    color: yellow;
-   font-weight: bold;
-   font-size: 26px;
+   font-family: 'Langar', sans-serif;
+   font-weight: normal;
+   font-size: 30px;
    margin-right: 10px;
+   margin-top: 50px;
 }
 label:after {
    content: ":";
